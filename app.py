@@ -12,7 +12,7 @@ def home():
 def gemini_query():
     data = request.get_json()
     print(data)
-    text = data.get('dataObject', {}).get('question')
+    text = data.get('theDataObject', {}).get('ai_question')
     response_text = get_response(text)
     response_data = {
         "status": "success",

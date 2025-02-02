@@ -1,15 +1,14 @@
 $(document).ready(function(){
+    var theDataObject = {};
     $('.primary-button').on('click', function(){
         var ai_question = $('#chatBotQuestionInput').val();
         var property_1 = "TEST1";
         var property_2 = "TEST2";
         var property_3 = "TEST3";
-        var dataObject = {
-            question: ai_question,
-            property1: property_1,
-            property2: property_2,
-            property3: property_3
-        };
+        theDataObject.ai_question = ai_question;
+        theDataObject.property_1 = property_1;
+        theDataObject.property_2 = property_2;
+        theDataObject.property_3 = property_3;
         console.log('The question is ' + ai_question);
         console.log(ai_question);
         $.ajax({
@@ -18,7 +17,7 @@ $(document).ready(function(){
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: JSON.stringify({ dataObject }),
+            data: JSON.stringify({ theDataObject }),
             success:function(data)
             {
                 console.log('Status');
