@@ -1,16 +1,32 @@
 $(document).ready(function(){
     $('.primary-button').on('click', function(){
+        var ai_question = $('#chatBotQuestionInput').val();
+        var property_1 = "TEST1";
+        var property_2 = "TEST2";
+        var property_3 = "TEST3";
+        var dataObject = {
+            question: ai_question,
+            property1: property_1,
+            property2: property_2,
+            property3: property_3
+        };
+        console.log('The question is ' + ai_question);
+        console.log(ai_question);
         $.ajax({
-            url: '/test_method',
+            url: '/gemini_query',
             type: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify({ dataObject }),
             success:function(data)
             {
                 console.log(data)
-                alert(data)
+                $('#geminiResponse').text(data);
             },
             error:function(error){
                 console.log(error)
-                alert(error)
+                //alert(error)
             }
         })
     })

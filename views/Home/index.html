@@ -31,9 +31,18 @@
 <script src="{{ url_for('static', filename='index.js')}}"></script>
 <body>
     <div class="container">
-        <h1>Welcome to our Web Application!</h1>
-        <p>This is a generic home page.</p>
-        <button type="button" class="btn btn-primary primary-button">Boot Strap Primary Button</button>
+        <h1>Welcome to chat bot powered by Gemini!</h1>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Chat Bot Question</label>
+            <input type="text" class="form-control" id="chatBotQuestionInput" aria-describedby="emailHelp" placeholder="How can I help you?">
+        </div>
+        <button type="button" class="mt-4 btn btn-primary primary-button">Submit Question</button>
+    </div>
+    <div class="container">
+        <div class="form-group">
+            <label>Gemini Response</label>
+            <label class="form-control gemini-response" id="geminiResponse">
+        </div>
     </div>
 </body>
 </html>

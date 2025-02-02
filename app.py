@@ -11,7 +11,7 @@ def gemini_query():
     print(request.data)
     data = request.get_json()
     print(data)
-    text = data.get('question')
+    text = data.get('dataObject', {}).get('question')
     response_text = get_response(text)
     return response_text
 
