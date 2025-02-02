@@ -21,8 +21,15 @@ $(document).ready(function(){
             data: JSON.stringify({ dataObject }),
             success:function(data)
             {
+                console.log('Status');
+                console.log(data.status);
+                console.log('Data')
                 console.log(data)
-                $('#geminiResponse').text(data);
+                if(data.status === 'success'){
+                    var gemini_response = data.data.key1;
+                    console.log(gemini_response)
+                    $('#geminiResponse').text(gemini_response);
+                }
             },
             error:function(error){
                 console.log(error)

@@ -13,7 +13,14 @@ def gemini_query():
     print(data)
     text = data.get('dataObject', {}).get('question')
     response_text = get_response(text)
-    return response_text
+    response_data = {
+        "status": "success",
+        "message": "gemini response object",
+        "data": {
+            "key1": response_text,
+        }
+    }
+    return response_data
 
 if __name__ == '__main__':
     app.run(debug=True)
