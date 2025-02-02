@@ -23,12 +23,13 @@ $(document).ready(function(){
             {
                 console.log('Status');
                 console.log(data.status);
-                console.log('Data')
-                console.log(data)
+                console.log('Data');
+                console.log(data);
                 if(data.status === 'success'){
                     var gemini_response = data.data.key1;
                     console.log(gemini_response)
                     $('#geminiResponse').text(gemini_response);
+                    $('.date-time-response').text(data.dateTime);
                 }
             },
             error:function(error){
