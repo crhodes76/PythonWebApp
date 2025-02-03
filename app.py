@@ -7,6 +7,10 @@ app = Flask(__name__, template_folder='views')
 def home():
     return render_template('/Home/index.html')
 
+@app.route('/my_time')
+def my_time():
+    return render_template('/Home/my_time.html')
+
 @app.route('/gemini_query', methods=['POST'])
 
 def gemini_query():
