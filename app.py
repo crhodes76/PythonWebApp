@@ -10,13 +10,13 @@ def home():
 
 @app.route('/my_time', methods=['GET', 'POST'])
 def my_time():
+    mytime_model = MyTimeModel()
     if request.method == 'POST':
         project_id = request.form['project_id']
         hours_worked = request.form['hours_worked']
-        mytime_model = MyTimeModel(project_id=project_id, hours_worked=hours_worked)
-        return render_template('/Home/my_time.html', mytime_model=mytime_model)
-    else:
-        return render_template('/Home/my_time.html', mytime_model=None)
+        mytime_model.project_id = project_id
+        mytime_model.hours_worked = hours_worked
+    return render_template('/Home/my_time.html', mytime_model=mytime_model)
 
 @app.route('/gemini_query', methods=['POST'])
 

@@ -12,7 +12,11 @@
         <form method="POST" action="{{ url_for('my_time') }}">
             <div class="mb-3">
                 <label for="project_id" class="form-label">Project ID</label>
-                <input type="text" class="form-control" id="project_id" name="project_id" required>
+                <select class="form-control" id="project_id" name="project_id" required>
+                    {% for pid in mytime_model.project_ids %}
+                        <option value="{{ pid }}">{{ pid }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="mb-3">
                 <label for="hours_worked" class="form-label">Hours Worked</label>
