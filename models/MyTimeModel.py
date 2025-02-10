@@ -1,6 +1,4 @@
 from datetime import date, datetime
-import random
-import string
 
 class MyTimeModel:
     def __init__(self, project_id=None, hours_worked=None, date=None, work_type=None):
