@@ -14,8 +14,10 @@ def my_time():
     if request.method == 'POST':
         project_id = request.form['project_id']
         hours_worked = request.form['hours_worked']
+        date = request.form['date']
         mytime_model.project_id = project_id
         mytime_model.hours_worked = hours_worked
+        mytime_model.date = date
     return render_template('/Home/my_time.html', mytime_model=mytime_model)
 
 @app.route('/gemini_query', methods=['POST'])

@@ -11,6 +11,10 @@
         <h1>My Time</h1>
         <form method="POST" action="{{ url_for('my_time') }}">
             <div class="mb-3">
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date" value="{{ mytime_model.date }}" required>
+            </div>
+            <div class="mb-3">
                 <label for="project_id" class="form-label">Project ID</label>
                 <select class="form-control" id="project_id" name="project_id" required>
                     {% for pid in mytime_model.project_ids %}
