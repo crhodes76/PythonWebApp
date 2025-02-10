@@ -12,6 +12,22 @@ def insert_my_time_to_db(project_id, hours_worked, date, work_type):
     connection.commit()
     cursor.close()
     close_connection(connection)
+    
+def fetch_all_records(self):
+    records = []
+    connection = initiate_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT date, hours, project_id, work_type FROM [dbo].[MyTimeTracking]")
+    for row in cursor.fetchall():
+        records.append({
+            'date': row.date,
+            'hours': row.hours,
+            'project_id': row.project_id,
+            'work_type': row.work_type
+        })
+    cursor.close()
+    close_connection(connection)
+    return records
 
 def initiate_connection():
     # Replace these values with your database details

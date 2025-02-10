@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from GeminiAiApiMethods import get_response, gemini_query_response
 from models.MyTimeModel import MyTimeModel
-from database.database_functions import insert_my_time_to_db
+from database.database_functions import insert_my_time_to_db, fetch_all_records
 
 app = Flask(__name__, template_folder='views')
 
@@ -18,11 +18,12 @@ def my_time():
         hours_worked = request.form['hours_worked']
         date = request.form['date']
         work_type = request.form['work_type']
+        insert_my_time_to_db(project_id, hours_worked, date, work_type)
         mytime_model.project_id = project_id
         mytime_model.hours_worked = hours_worked
         mytime_model.date = date
         mytime_model.work_type = work_type
-        insert_my_time_to_db(project_id, hours_worked, date, work_type)
+        mytime_model.records = fetch_all_records(self=mytime_model)
     return render_template('/Home/my_time.html', mytime_model=mytime_model)
 
 @app.route('/gemini_query', methods=['POST'])
