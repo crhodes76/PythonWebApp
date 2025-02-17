@@ -1,8 +1,15 @@
 $(document).ready(function(){
     var theDataObject = {};
+    $('#chatGptToggle').on('change', function(){
+        if($(this).is(':checked')){
+            theDataObject.property_1 = true;
+        } else {
+            theDataObject.property_1 = false;
+        }
+    });
     $('.primary-button').on('click', function(){
         var ai_question = $('#chatBotQuestionInput').val();
-        var property_1 = "TEST1";
+        var property_1 = $('#chatGptToggle').is(':checked') ? true : false;
         var property_2 = "TEST2";
         var property_3 = "TEST3";
         theDataObject.ai_question = ai_question;
@@ -12,7 +19,7 @@ $(document).ready(function(){
         console.log('The question is ' + ai_question);
         console.log(ai_question);
         $.ajax({
-            url: '/gemini_query',
+            url: '/ai_query',
             type: 'POST',
             headers: {
                 'Content-Type': 'application/json'
