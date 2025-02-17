@@ -3,12 +3,16 @@ from GeminiAiApiMethods import get_response, gemini_query_response
 from models.MyTimeModel import MyTimeModel
 from database.database_functions import insert_my_time_to_db, fetch_all_records
 from ChatGptMethods import chat_gpt_query_response
+import logging
+
 app = Flask(__name__, template_folder='views')
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
 def home():
     return render_template('/Home/index.html')
-
 
 @app.route('/my_time', methods=['GET', 'POST'])
 def my_time():
@@ -28,15 +32,19 @@ def my_time():
 
 @app.route('/ai_query', methods=['POST'])
 def ai_query():
-    post_requesst = request.get_json()
-    isChatGptRequest = post_requesst.get('theDataObject', {}).get('property_1')
-    print(type(isChatGptRequest))
+    post_request = request.get_json()
+    isChatGptRequest = post_request.get('theDataObject', {}).get('property_1')
+    logging.debug(f"isChatGptRequest: {isChatGptRequest}")
     if isChatGptRequest is False:
-            query_response = gemini_query_response(request.get_json())
-            return query_response
+        query_response = gemini_query_response(request.get_json())
+        return query_response
     else:
-            query_response = chat_gpt_query_response(request.get_json())
-            return query_response
+        query_response = chat_gpt_query_response(request.get_json())
+        return query_response
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    try:
+        app.run(debug=True)
+    except Exception as e:
+        logging.error(f"Error running the Flask application: {e}")
+        raise

@@ -1,7 +1,7 @@
 import pyodbc
 from datetime import datetime
 
-def insert_my_time_to_db(project_id, hours_worked, date, work_type):   
+def insert_my_time_to_db(project_id, hours_worked, date, work_type):
     date_obj = datetime.strptime(date, '%Y-%m-%d')
     connection = initiate_connection()
     cursor = connection.cursor()
@@ -12,12 +12,12 @@ def insert_my_time_to_db(project_id, hours_worked, date, work_type):
     connection.commit()
     cursor.close()
     close_connection(connection)
-    
+
 def fetch_all_records(self):
     records = []
     connection = initiate_connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT date, hours, project_id, work_type FROM [dbo].[MyTimeTracking]")
+    cursor.execute("SELECT date, hours, project_id, work_type FROM [dbo].[MyTimeTracking] ORDER BY date DESC")
     for row in cursor.fetchall():
         records.append({
             'date': row.date,
