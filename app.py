@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from GeminiAiApiMethods import get_response, gemini_query_response
 from models.MyTimeModel import MyTimeModel
-from database.database_functions import insert_my_time_to_db, fetch_all_records
 from ChatGptMethods import chat_gpt_query_response
 import logging
 import requests
@@ -20,16 +19,10 @@ def my_time():
     mytime_model = MyTimeModel()
     if request.method == 'POST':
         project_id = request.form['project_id']
-        hours_worked = request.form['hours_worked']
+        hours_worked = float(request.form['hours_worked'])
         date = request.form['date']
         work_type = request.form['work_type']
-        #insert_my_time_to_db(project_id, hours_worked, date, work_type)
-        #mytime_model.project_id = project_id
-        #mytime_model.hours_worked = hours_worked
-        #mytime_model.date = date
-        #mytime_model.work_type = work_type
-        #mytime_model.records = fetch_all_records(self=mytime_model)
-        
+               
         # API POST request to /api/my_time_save
         try:
             response = requests.post(
@@ -41,7 +34,13 @@ def my_time():
                     'work_type': work_type
                 }
             )
-            logging.debug(f"API response: {response.json()}")
+            response_data = response.json()
+            mytime_model.project_id = response_data['data']['project_id']
+            mytime_model.hours_worked = response_data['data']['hours_worked']
+            mytime_model.date = response_data['data']['date']
+            mytime_model.work_type = response_data['data']['work_type']
+            mytime_model.records = response_data['all_records']
+            logging.debug(f"API response: {response_data}")
         except Exception as e:
             logging.error(f"Error making API request: {e}")
 
