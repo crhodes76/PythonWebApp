@@ -4,6 +4,7 @@ from models.MyTimeModel import MyTimeModel
 from ChatGptMethods import chat_gpt_query_response
 import logging
 import requests
+import web_api_functions.webapi as webapi
 
 app = Flask(__name__, template_folder='views')
 
@@ -18,29 +19,17 @@ def home():
 def my_time():
     mytime_model = MyTimeModel()
     if request.method == 'POST':
-        project_id = request.form['project_id']
-        hours_worked = float(request.form['hours_worked'])
-        date = request.form['date']
-        work_type = request.form['work_type']
-               
-        # API POST request to /api/my_time_save
         try:
-            response = requests.post(
-                'http://127.0.0.1:5001/api/my_time_save',
-                json={
-                    'project_id': project_id,
-                    'hours_worked': hours_worked,
-                    'date': date,
-                    'work_type': work_type
-                }
-            )
-            response_data = response.json()
-            mytime_model.project_id = response_data['data']['project_id']
-            mytime_model.hours_worked = response_data['data']['hours_worked']
-            mytime_model.date = response_data['data']['date']
-            mytime_model.work_type = response_data['data']['work_type']
-            mytime_model.records = response_data['all_records']
-            logging.debug(f"API response: {response_data}")
+            response_data = webapi.my_time_save(request)
+            if response_data:
+                mytime_model.project_id = response_data['data']['project_id']
+                mytime_model.hours_worked = response_data['data']['hours_worked']
+                mytime_model.date = response_data['data']['date']
+                mytime_model.work_type = response_data['data']['work_type']
+                mytime_model.records = response_data.get('all_records', [])
+                logging.debug(f"API response: {response_data}")
+            else:
+                logging.error("Error: response_data is None")
         except Exception as e:
             logging.error(f"Error making API request: {e}")
 
