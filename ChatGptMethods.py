@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 
 def chat_gpt_query_response(data):
-    API_KEY = "AIzaSyAX6aOzupGfAW8njCjBPo6DQt6FitNr6cg"
+    API_KEY = ""
     theData = request.get_json()
     print(theData)
     text = theData.get('theDataObject', {}).get('ai_question')
