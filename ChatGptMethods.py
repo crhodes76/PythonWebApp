@@ -2,12 +2,12 @@ import requests
 from flask import request
 
 def chat_gpt_query_response(data):
-    API_KEY = ""
+    #API_KEY = ""
     theData = request.get_json()
     text = theData.get('theDataObject', {}).get('ai_question')
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer " + API_KEY
+        #"Authorization": "Bearer " + API_KEY
     }
     data = {
         "model": "gpt-3.5-turbo",
